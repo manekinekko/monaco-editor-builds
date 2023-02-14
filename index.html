@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="./dist/editor.main.css" />
+<style>
+  .container {
+    height: 100vh;
+  }
+</style>
+<div class="container" id="editor"></div>
+<div class="container" id="diff"></div>
+<script type="module">
+  import { editor } from "./dist/editor.main.js";
+
+  window.MonacoEnvironment = {
+    getWorkerUrl: function (moduleId, label) {
+      if (label === "json") {
+        return "./dist/vs/language/json/json.worker.js";
+      }
+      if (label === "css" || label === "scss" || label === "less") {
+        return "./dist/vs/language/css/css.worker.js";
+      }
+      if (label === "html" || label === "handlebars" || label === "razor") {
+        return "./dist/vs/language/html/html.worker.js";
+      }
+      if (label === "typescript" || label === "javascript") {
+        return "./dist/vs/language/typescript/ts.worker.js";
+      }
+      return "./dist/vs/editor/editor.worker.js";
+    },
+  };
+
+  editor.create(window.editor, {
+    value: ["function x() {", '\tconsole.log("Hello world!");', "}"].join("\n"),
+    language: "javascript",
+  });
+
+  var original = editor.createModel("heLLo world!");
+  var modified = editor.createModel("hello orlando!");
+
+  const diffEditor = editor.createDiffEditor(window.diff, {
+    originalEditable: true,
+    readOnly: true,
+  });
+  diffEditor.setModel({
+    original,
+    modified,
+  });
+</script>

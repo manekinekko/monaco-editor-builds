@@ -1,0 +1,16 @@
+{
+  "name": "monaco-editor-builds",
+  "version": "1.0.0",
+  "description": "Monaco Editor Public Builds",
+  "scripts": {
+    "prebuild": "rimraf dist",	
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.35.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.8",
+    "rimraf": "^4.1.2"
+  }
+}
